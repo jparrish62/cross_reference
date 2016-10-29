@@ -1,0 +1,2 @@
+module WalmartItemsHelper
+end
