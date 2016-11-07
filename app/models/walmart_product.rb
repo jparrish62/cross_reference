@@ -4,24 +4,26 @@ class WalmartProduct < ApplicationRecord
   require 'json'
   include HTTParty
 
-  def search(term)
-    if WalmartProduct.exist?(term)
-      SELECT 20 FROM walmart_products where walmart_products.product_name = term
-    else
-      request = self.class.get("http://api.walmartlabs.com/v1/search?query=#{term}&format=json&apiKey=5y3ju35n6vxa9t6p7xpbhy9g")
-      save_api_items(request)
-    end
+  def self.get_product_data_base
+    'SELECT * FROM walmart_products WHERE (walmart_products.product_name = term) LIMIT 10'
   end
 
-  def save_api_items(uri_request)
-    walmart_data      = JSON.parse(uri_request)
-    walmart_data.map do |data|
-      requested_items = WalmartProduct.new
-      requested_item.product_name         = data['items']['name']
-      requested_item.product_description  = data['items']['longDescription']
-      requested_item.sales_price          = data['items']['salePrice']
-      requested_item.item_id              = data['items']['itemId']
-      requested_item.save
+  def self.search(term)
+    return get_product_data_base if WalmartProduct.exists?(term) 
+    request = get("http://api.walmartlabs.com/v1/search?query=#{term}&format=json&apiKey=5y3ju35n6vxa9t6p7xpbhy9g")
+    save_api_items(request)
+    get_product_data_base
+  end
+
+  def self.save_api_items(uri_request)
+    walmart_data      = JSON.parse(uri_request.body)
+    walmart_data['items'].map do |item|
+      requested_item  = WalmartProduct.new
+      requested_item.item_id              = item['itemId']
+      requested_item.product_name         = item['name']
+      requested_item.product_description  = item['longDescription']
+      requested_item.sales_price          = item['salePrice']
+      requested_item.save!
     end
   end
 end

@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :walmart_products, 	 	only: [:index, :show]
+  resources :walmart_products, 	 	only: [:new, :index, :show]
 end
