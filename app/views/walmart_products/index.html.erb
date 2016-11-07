@@ -63,14 +63,14 @@
 
        <div class="col-md-9">
         <div class="row">
+          <% @walmart_products.each_slice(9) do |row| %>
           <!-- item -->
-          <% @walmart_products.each_slice(6) do |row| %>
           <div class="col-sm-6 col-md-4">
             <% row.each do |product| %>
             <article class="mb shop-product">
 
               <figure>
-                <img src="images/shop/product-5.jpg" alt="EDENA premium website template" class="responsive">
+                <%= image_tag product.image.url(:medium) %>
                 <figcaption>
                   <div class="rollover-content">
 

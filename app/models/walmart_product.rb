@@ -1,4 +1,6 @@
 class WalmartProduct < ApplicationRecord
+  has_attached_file :image, styles: { medium: "300x300#"}
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   belongs_to :user
   require 'httparty'
   require 'json'
@@ -9,7 +11,7 @@ class WalmartProduct < ApplicationRecord
   end
 
   def self.search(term)
-    return get_product_data_base if WalmartProduct.exists?(term) 
+    return get_product_data_base if WalmartProduct.exists?(term)
     request = get("http://api.walmartlabs.com/v1/search?query=#{term}&format=json&apiKey=5y3ju35n6vxa9t6p7xpbhy9g")
     save_api_items(request)
     get_product_data_base
@@ -23,7 +25,9 @@ class WalmartProduct < ApplicationRecord
       requested_item.product_name         = item['name']
       requested_item.product_description  = item['longDescription']
       requested_item.sales_price          = item['salePrice']
+      requested_item.image                = item['mediumImage']
       requested_item.save!
     end
+    get_product_data_base
   end
 end

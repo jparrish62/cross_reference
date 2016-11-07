@@ -8,6 +8,8 @@ gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
+gem 'paperclip', '~> 5.1'
+
 gem 'devise', '~> 4.2'
 
 gem 'httparty', '~> 0.14.0'
