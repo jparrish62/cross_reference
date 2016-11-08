@@ -3,6 +3,10 @@ class WalmartProductsController < ApplicationController
     @walmart_product = WalmartProduct.new
   end
 
+  def show
+    @walmart = WalmartProduct.find(params[:id])
+  end
+
   def index
     @walmart_products = WalmartProduct.all.order('created_at DESC')
     if params[:search]

@@ -1,0 +1,47 @@
+<main id="content">
+  <header class="page-header x-large image-background image-7 dark-color center no-padding parallax" data-stellar-background-ratio="0.3">
+    <div class="mask opacity-2">
+      <div class="container v-align-center">
+        <div class="row">
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="pt-medium pb-medium">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <article class="post mb-medium">
+            <p>
+              <%= @walmart.product_name %>
+            </p>
+          </article>
+          <article class="post mb-medium">
+            <div class="post-pic embed-responsive embed-responsive-16by9">
+              <%= image_tag @walmart.image.url(:medium) %>
+            </div>
+            <hr>
+            <h3><%= @walmart.product_description %></h3>
+            <ul class="entry-meta">
+              <li class="entry-comments">
+                <i class="icon-comment"></i>Price..$<%= @walmart.sales_price %>
+              </li>
+            </ul>
+            <hr>
+            <%= form_for [@walmart, Comment.new], remote: true do |f| %>
+            <div class="field form-group">
+              Comment
+              <%= f.text_area :body, placeholder: 'Add a comment', class: 'form-control home_comment_comment' %><br/>
+              <div class="actions">
+                <%= f.submit 'Post Comment', :class => 'btn btn-default'%>
+              </div>
+            </div>
+            <% end %>
+            <div id=walmart_comments_first_level >
+              <%= render(partial: 'comments/comment', collection: @walmart.comments) %>
+            </div>
+        </div>
+      </div><!-- row -->
+    </div><!-- container -->
+  </section>
+</main>
