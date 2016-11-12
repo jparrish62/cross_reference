@@ -8,18 +8,9 @@ class WalmartProductsController < ApplicationController
   end
 
   def index
-    @walmart_products = WalmartProduct.all.order('created_at DESC')
-    if params[:search]
-      @walmart_products = WalmartProduct.search(params[:search])
-    else
-      @walmart_products = WalmartProduct.all.order('created_at DESC')
+      @walmart_products = WalmartProduct.where(["product_name LIKE ?", "%#{params[:search]}%"]).limit(40)
+    if @walmart_products.empty?
+      @walmart_products = WalmartProduct.basic_search(params[:search])
     end
   end
-
-  def create
-    @walmart_products = WalmartProduct.search(params[:search])
-  end
-
-  private
-
 end

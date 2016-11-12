@@ -10,7 +10,13 @@
 
   <body>
     <div class= 'container'>
+    <br><br/>
+    <%= render 'layouts/nav'%>
+    <br><br/>
     <%= yield %>
+    <br><br/>
+    <%= render 'layouts/footer' %>
+    <br><br/>
   </div>
   </body>
 </html>
