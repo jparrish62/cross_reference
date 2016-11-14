@@ -1,0 +1,5 @@
+<% @advanced_search.each do |search| %>
+  <%= search.product_name %>
+  <%= search.sales_price  %>
+  <%= image_tag search.image.url(:medium) %>
+<% end %>

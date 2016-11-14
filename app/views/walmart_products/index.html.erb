@@ -23,15 +23,18 @@
       <aside class="col-md-3 mb-sm">
 
         <section class="widget">
-          <h3>Price</h3>
+          <h3>Advanced Search</h3>
           <nav class="sidebar-menu">
+            <%= form_tag(advanced_search_path, :method => "get", id: "search-form") do %>
             <ul>
-              <li><a href="#">$50 > $100</a></li>
-              <li><a href="#">$101 > $150</a></li>
-              <li><a href="#">$151 > $200</a></li>
-              <li><a href="#">$201 > $300</a></li>
-              <li><a href="#">$301 > $400</a></li>
+              <li><%= text_field_tag :name,      params[:name],      placeholder: "Product Name" %></li><br/>
+              <li><%= text_field_tag :min_price, params[:min_price], placeholder: "Min Price"    %></li><br/>
+              <li><%= text_field_tag :max_price, params[:max_price], placeholder: "Max Price"    %></li><br/>
+              <li><%= text_field_tag :category,  params[:category],  placeholder: "Category"     %></li><br/>
+              <li><%= text_field_tag :item_id,   params[:item_id],   placeholder: "Item id"      %></li><br/>
+              <%= submit_tag "Search", class: "btn btn-default" %>
             </ul>
+            <% end %>
           </nav>
         </section>
         <section class="widget">
@@ -116,7 +119,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="footer-widget">
-        
+
       </div>
     </div>
 

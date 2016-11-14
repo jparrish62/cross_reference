@@ -7,31 +7,25 @@ class WalmartProduct < ApplicationRecord
   require 'json'
   include HTTParty
 
-  def self.search(params)
-    if params[:category].present? || params[:min_price].present? || params[:max_price].present?
-      advanced_search(params)
-    else
-      basic_search(params[:search])
-    end
-  end
-
   def self.advanced_search(params)
-    if WalmartProduct.exist?(params)
-      products = WalmartProduct.all
-      products = products.where(["product_name LIKE ?",  name])
-      products = products.where(["item_category LIKE ?", category])
-      products = products.where(["sales_price >= ?",     min_price])
-      products = products.where(["sales_price <= ?",     max_price])
-      products
-    else
-      request = url_request(term)
-      save_api_items(request)
-    end
+    products = basic_search(params[:name])
+    products = products.where("product_name LIKE ?",     "%#{params[:name]}%")      if params[:name].present?
+    products = products.where("sales_price >= ?",        params[:min_price])        if params[:min_price].present?
+    products = products.where("sales_price <= ?",        params[:max_price])        if params[:max_price].present?
+    products = products.where("product_category LIKE ?", "%#{params[:category]}%")  if params[:category].present?
+    products = products.where("item_id LIKE ?",          params[:item_id])          if params[:item_id].present?
+    products
   end
 
   def self.basic_search(term)
-    request = url_request(term)
-    save_api_items(request)
+    walmart_products = WalmartProduct.where(["product_name LIKE ?", "%#{term}%"]).limit(40)
+    if walmart_products.empty?
+      request = url_request(term)
+      save_api_items(request)
+      WalmartProduct.where(["product_name LIKE ?", "%#{term}%"]).limit(40)
+    else
+      walmart_products
+    end
   end
 
   def self.url_request(term)
@@ -47,6 +41,7 @@ class WalmartProduct < ApplicationRecord
       requested_item.product_description  = item['longDescription']
       requested_item.sales_price          = item['salePrice']
       requested_item.image                = item['mediumImage']
+      requested_item.product_category     = item['categoryPath']
       requested_item.save!
       requested_item
     end

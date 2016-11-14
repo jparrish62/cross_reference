@@ -7,10 +7,11 @@ class WalmartProductsController < ApplicationController
     @walmart = WalmartProduct.find(params[:id])
   end
 
+  def product_advanced_search
+    @advanced_search = WalmartProduct.advanced_search(params)
+  end
+
   def index
-      @walmart_products = WalmartProduct.where(["product_name LIKE ?", "%#{params[:search]}%"]).limit(40)
-    if @walmart_products.empty?
-      @walmart_products = WalmartProduct.basic_search(params[:search])
-    end
+    @walmart_products = WalmartProduct.basic_search(params[:search])
   end
 end
