@@ -51,7 +51,11 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
+  gem 'launchy', '~> 2.4', '>= 2.4.3'
   gem 'web-console'
+  gem 'capybara', '~> 2.10', '>= 2.10.1'
+
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

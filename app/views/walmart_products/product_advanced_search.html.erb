@@ -1,5 +1,177 @@
-<% @advanced_search.each do |search| %>
-  <%= search.product_name %>
-  <%= search.sales_price  %>
-  <%= image_tag search.image.url(:medium) %>
-<% end %>
+<section class="pt light-color">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form class="form-inline mb-sm" role="form">
+            <%= form_tag(walmart_products_path, :method => "get", id: "search-form") do %>
+              <%= text_field_tag :search, params[:search], placeholder: "Search Products", class: "form-control" %>
+              <br><br/>
+              <%= submit_tag "Search", class: "btn btn-default" %>
+            <% end %>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<!-- portfolio -->
+<section class="pt pb-medium rollover effect-zoe">
+  <div class="container">
+    <div class="row">
+      <!-- sidebar -->
+      <aside class="col-md-3 mb-sm">
+
+        <section class="widget">
+          <h3>Advanced Search</h3>
+          <nav class="sidebar-menu">
+            <%= form_tag(advanced_search_path, :method => "get", id: "search-form") do %>
+              <ul>
+                <li><%= text_field_tag :name,      params[:name],      placeholder: "Product Name" %></li><br/>
+                <li><%= text_field_tag :min_price, params[:min_price], placeholder: "Min Price"    %></li><br/>
+                <li><%= text_field_tag :max_price, params[:max_price], placeholder: "Max Price"    %></li><br/>
+                <li><%= text_field_tag :category,  params[:category],  placeholder: "Category"     %></li><br/>
+                <li><%= text_field_tag :item_id,   params[:item_id],   placeholder: "Item id"      %></li><br/>
+                <%= submit_tag "Search", class: "btn btn-default" %>
+              </ul>
+            <% end %>
+          </nav>
+        </section>
+        <section class="widget">
+          <h3>Type</h3>
+          <nav class="sidebar-menu">
+            <ul>
+              <li><a href="#">Coats and jackets</a></li>
+              <li><a href="#">Dresses</a></li>
+              <li><a href="#">Skirts</a></li>
+              <li><a href="#">Tops</a></li>
+            </ul>
+          </nav>
+        </section>
+        <section class="widget">
+          <h3>Size</h3>
+          <nav class="sidebar-menu">
+            <ul>
+              <li><a href="#">XL</a></li>
+              <li><a href="#">L</a></li>
+              <li><a href="#">M</a></li>
+              <li><a href="#">S</a></li>
+            </ul>
+          </nav>
+        </section>
+
+      </aside>
+      <!-- / sidebar -->
+
+
+       <div class="col-md-9">
+        <div class="row">
+          <% @advanced_search.each_slice(4) do |row| %>
+          <!-- item -->
+          <div class="col-sm-6 col-md-4">
+            <% row.each do |search| %>
+            <article class="mb shop-product">
+
+              <figure>
+                <%=  image_tag search.image.url(:medium) %>
+                <figcaption>
+                  <div class="rollover-content">
+
+                    <p class="icon-links btn-group responsive">
+
+                      <a href="shop-item.html" title="product">
+                        <span class="icon-glyph-16"></span>view
+                      </a>
+                      <a href="#" title="cart">
+                        <span class="icon-glyph-13"></span> Add to cart
+                      </a>
+                    </p>
+                  </div>
+                </figcaption>
+              </figure>
+
+              <div class="pt-small">
+
+                <h2><span><%= link_to search.product_name, walmart_product_path(search) %></span>
+                  <span class="text-main-color large">$<%= search.sales_price %></span>
+                </h2>
+              </div>
+
+            </article>
+            <% end %>
+          </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- portfolio -->
+</main>
+<!-- / content -->
+
+<!-- footer -->
+<footer id="main-footer">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="footer-widget">
+
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="footer-widget clearfix">
+
+        <h3>About us</h3>
+
+        <ul class="list-unstyled list-icon arrow border">
+          <li class="no-pt">Find a store</li>
+          <li>Carreers</li>
+          <li>Our brands</li>
+          <li>Lifestyle</li>
+          <li>Contact us</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div class="col-sm-3">
+      <div class="footer-widget">
+
+        <h3>New arrivals</h3>
+        <ul class="list-unstyled list-icon arrow border">
+          <li class="no-pt">Coats</li>
+          <li>Shoes</li>
+          <li>Handbags</li>
+          <li>Sweaters</li>
+          <li>Accesories</li>
+        </ul>
+
+      </div>
+    </div>
+
+
+    <div class="col-sm-3">
+      <div class="footer-widget">
+        <h3>Support</h3>
+        <ul class="list-unstyled list-icon arrow border">
+          <li class="no-pt">My account</li>
+          <li>My order</li>
+          <li>International shipping</li>
+          <li>Return and exchange</li>
+          <li>Gift cards</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+</footer>
+<!-- / footer -->
+</div>
+<!-- global wrapper -->

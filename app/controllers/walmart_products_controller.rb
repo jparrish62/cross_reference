@@ -1,4 +1,5 @@
 class WalmartProductsController < ApplicationController
+  before_action :authenticate_user!
   def new
     @walmart_product = WalmartProduct.new
   end

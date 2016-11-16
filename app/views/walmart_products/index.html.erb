@@ -3,11 +3,19 @@
     <div class="row">
       <div class="col-md-6">
         <form class="form-inline mb-sm" role="form">
-            <%= form_tag(walmart_products_path, :method => "get", id: "search-form") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search Products", class: "form-control" %>
+
+          <%= form_tag(walmart_products_path, :method => "get", id: "search-form") do %>
+            <% if user_signed_in? %>
+              <% if params[:search].blank? %>
+               <%= render 'error_message'%>
+              <% end %>
+              <%=  text_field_tag :search, params[:search], placeholder: "Search Products", class: "form-control" %>
               <br><br/>
               <%= submit_tag "Search", class: "btn btn-default" %>
+            <% else %>
+              <%= render 'warning_message'%>
             <% end %>
+          <% end %>
         </form>
       </div>
     </div>
@@ -26,14 +34,16 @@
           <h3>Advanced Search</h3>
           <nav class="sidebar-menu">
             <%= form_tag(advanced_search_path, :method => "get", id: "search-form") do %>
-            <ul>
-              <li><%= text_field_tag :name,      params[:name],      placeholder: "Product Name" %></li><br/>
-              <li><%= text_field_tag :min_price, params[:min_price], placeholder: "Min Price"    %></li><br/>
-              <li><%= text_field_tag :max_price, params[:max_price], placeholder: "Max Price"    %></li><br/>
-              <li><%= text_field_tag :category,  params[:category],  placeholder: "Category"     %></li><br/>
-              <li><%= text_field_tag :item_id,   params[:item_id],   placeholder: "Item id"      %></li><br/>
-              <%= submit_tag "Search", class: "btn btn-default" %>
-            </ul>
+              <% if user_signed_in? %>
+                <ul>
+                  <li><%= text_field_tag :name,      params[:name],      placeholder: "Product Name" %></li><br/>
+                  <li><%= text_field_tag :min_price, params[:min_price], placeholder: "Min Price"    %></li><br/>
+                  <li><%= text_field_tag :max_price, params[:max_price], placeholder: "Max Price"    %></li><br/>
+                  <li><%= text_field_tag :category,  params[:category],  placeholder: "Category"     %></li><br/>
+                  <li><%= text_field_tag :item_id,   params[:item_id],   placeholder: "Item id"      %></li><br/>
+                  <%= submit_tag "Search", class: "btn btn-default" %>
+                </ul>
+              <% end %>
             <% end %>
           </nav>
         </section>
