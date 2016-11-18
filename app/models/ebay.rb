@@ -11,10 +11,14 @@ class Ebay < ApplicationRecord
   end
 
   def self.ebay_search(term)
-    searched_item = Ebay.where('name LIKE ?', "%#{term}%").limit(40)
-    return get_request(term) if searched_item.empty?
-    save_ebay_items(term)
-    Ebay.where('name LIKE ?', "%#{term}%").limit(40)
+    searched_item = Ebay.where(['name LIKE ?', "%#{term}%"]).limit(40)
+    if searched_item.empty?
+      api_request = get_request(term)
+      save_ebay_items(api_request)
+      Ebay.where(['name LIKE ?', "%#{term}%"]).limit(40)
+    else
+      searched_item
+    end
   end
 
   def self.save_ebay_items(request)

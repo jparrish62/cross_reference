@@ -93,8 +93,10 @@
 
 						<div class="col-md-9">
 							<div class="row">
+                <% @ebay_products.each_slice(3) do |row| %>
 								<!-- item -->
 								<div class="col-sm-6 col-md-4">
+                  <% row.each do |ebay| %>
 									<article class="mb shop-product">
 
 										<figure>
@@ -114,15 +116,15 @@
 												</div>
 											</figcaption>
 										</figure>
-
 										<div class="pt-small">
-											<h2><span>Dress in Grey</span>
-												<span class="text-main-color large">$289</span>
+											<h2><span><%= ebay.name %></span>
+												<span class="text-main-color large"><%= ebay.price %></span>
 											</h2>
 										</div>
-
 									</article>
+                  <% end %>
 								</div>
+                <% end %>
 								<!-- / item -->
 								<!-- item -->
 								<div class="col-sm-6 col-md-4">
