@@ -3,7 +3,7 @@
     <ul class="nav nav-justified text-uppercase" >
       <% if user_signed_in? %>
         <li><%= link_to 'Search Walmart Products', walmart_products_path %></li>
-        <li><%= link_to 'Search Target Products', '#' %></li>
+        <li><%= link_to 'Search Ebay Products', ebays_path %></li>
         <li><%= link_to 'Search Best Buy Products', '#' %></li>
         <li><%= link_to 'Sign Out',destroy_user_session_path, :method => :delete %></li>
       <% else %>

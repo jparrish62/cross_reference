@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113204449) do
+ActiveRecord::Schema.define(version: 20161118044904) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 20161113204449) do
     t.index ["WalmartProduct_id"], name: "index_comments_on_WalmartProduct_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
     t.index ["walmart_product_id"], name: "index_comments_on_walmart_product_id"
+  end
+
+  create_table "ebays", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "price"
+    t.string   "status"
+    t.integer  "product_id", limit: 8
+    t.integer  "bid_count",  limit: 8
+    t.text     "title"
+    t.integer  "user_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["user_id"], name: "index_ebays_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,8 +1,8 @@
 class WalmartProduct < ApplicationRecord
-  validates :product_name, presence: true 
-  has_attached_file :image, styles: { medium: "300x300#"}
+  validates :product_name,                  presence: true
+  has_attached_file :image,                 styles: { medium: "300x300#"}
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
-  has_many :comments, as: :commentable
+  has_many :comments,                       as: :commentable
   belongs_to :user
   require 'httparty'
   require 'json'
