@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
 
 def new
   @comment = Comment.new
+
 end
 
 def create
@@ -27,5 +28,6 @@ end
 def find_commentable
    @commentable = Comment.find_by(id: params[:comment_id]) if params[:comment_id]
    @commentable = WalmartProduct.find_by(id: params[:walmart_product_id]) if params[:walmart_product_id]
+   @commentable = Ebay.find_by(id: params[:ebay_id]) if params[:ebay_id]
  end
 end

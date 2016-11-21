@@ -5,5 +5,6 @@ class Comment < ApplicationRecord
   belongs_to :commentable,      polymorphic: true
   has_many   :comments,         as: :commentable
   belongs_to :walmart_product
+  belongs_to :ebay 
   belongs_to :user
 end

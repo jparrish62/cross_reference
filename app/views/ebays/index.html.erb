@@ -100,7 +100,7 @@
 									<article class="mb shop-product">
 
 										<figure>
-											<img src="images/shop/product-5.jpg" alt="EDENA premium website template" class="responsive">
+											<%= image_tag ebay.image.url(:medium) %>
 											<figcaption>
 												<div class="rollover-content">
 
@@ -117,7 +117,7 @@
 											</figcaption>
 										</figure>
 										<div class="pt-small">
-											<h2><span><%= ebay.name %></span>
+											<h2><span><%= link_to ebay.name, ebay_path(ebay)%></span>
 												<span class="text-main-color large"><%= ebay.price %></span>
 											</h2>
 										</div>

@@ -1,5 +1,13 @@
 <% if @commentable.is_a?(WalmartProduct) %>
+
   $("#walmart_comments_first_level").append("<%= j (render partial: 'comments/comment', object: @comment) %>");
+
+<% elsif @commentable.is_a?(Ebay)%>
+
+  $("#walmart_comments_first_level").append("<%= j (render partial: 'comments/comment', object: @comment) %>");
+
 <% else %>
+
   $("#walmart_comments_<%= @commentable.id %>").append("<%= j (render partial: 'comments/comment', object: @comment) %>");
+  
 <% end %>

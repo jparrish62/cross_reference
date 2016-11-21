@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118044904) do
+ActiveRecord::Schema.define(version: 20161121004002) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 20161118044904) do
     t.string   "user_name"
     t.integer  "WalmartProduct_id"
     t.integer  "walmart_product_id"
+    t.integer  "ebay_id"
     t.index ["WalmartProduct_id"], name: "index_comments_on_WalmartProduct_id"
+    t.index ["ebay_id"], name: "index_comments_on_ebay_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
     t.index ["walmart_product_id"], name: "index_comments_on_walmart_product_id"
   end
@@ -31,12 +33,16 @@ ActiveRecord::Schema.define(version: 20161118044904) do
     t.string   "name"
     t.decimal  "price"
     t.string   "status"
-    t.integer  "product_id", limit: 8
-    t.integer  "bid_count",  limit: 8
+    t.integer  "product_id",         limit: 8
+    t.integer  "bid_count",          limit: 8
     t.text     "title"
     t.integer  "user_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["user_id"], name: "index_ebays_on_user_id"
   end
 
