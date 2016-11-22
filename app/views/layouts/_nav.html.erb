@@ -4,7 +4,7 @@
       <% if user_signed_in? %>
         <li><%= link_to 'Search Walmart Products', walmart_products_path %></li>
         <li><%= link_to 'Search Ebay Products', ebays_path %></li>
-        <li><%= link_to 'Search Best Buy Products', '#' %></li>
+        <li><%= link_to 'Search Bonanza Products', bonanzas_path %></li>
         <li><%= link_to 'Sign Out',destroy_user_session_path, :method => :delete %></li>
       <% else %>
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>

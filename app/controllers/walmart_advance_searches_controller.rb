@@ -1,2 +1,0 @@
-class WalmartAdvanceSearchesController < ApplicationController
-end

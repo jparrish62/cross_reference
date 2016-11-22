@@ -1,0 +1,451 @@
+<div id="global-wrapper">
+  <main id="content">
+
+    <header class="page-header image-background image-16 no-padding">
+      <div class="mask opacity-2">
+
+        <div class="container v-align-center">
+          <div class="row">
+            <div class="col-md-12 text-light pt pb">
+              <h1 class="large block">Browse Bonanza Products</h1>
+              <p class="lead block">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <section class="pt light-color">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <form class="form-inline mb-sm" role="form">
+              <%= form_tag(bonanzas_path, :method => "get", id: "search-form") do %>
+                <% if user_signed_in? %>
+                  <%= render('bonanza_error_message') if params[:search].blank? %>
+                  <%=  text_field_tag :search, params[:search], placeholder: "Search Products", class: "form-control" %>
+                  <br><br/>
+                  <%= submit_tag "Search", class: "btn btn-default" %>
+                <% else %>
+                  <%= render 'bonanza_warning_message'%>
+                <% end %>
+              <% end %>
+            </form>
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+      </div>
+      <hr />
+    </section>
+
+    <!-- portfolio -->
+    <section class="pt pb-medium rollover effect-zoe">
+      <div class="container">
+        <div class="row">
+          <!-- sidebar -->
+          <aside class="col-md-3 mb-sm">
+
+            <section class="widget">
+              <h3>Price</h3>
+              <nav class="sidebar-menu">
+                <ul>
+                  <li><a href="#">$50 > $100</a></li>
+                  <li><a href="#">$101 > $150</a></li>
+                  <li><a href="#">$151 > $200</a></li>
+                  <li><a href="#">$201 > $300</a></li>
+                  <li><a href="#">$301 > $400</a></li>
+                </ul>
+              </nav>
+            </section>
+            <section class="widget">
+              <h3>Type</h3>
+              <nav class="sidebar-menu">
+                <ul>
+                  <li><a href="#">Coats and jackets</a></li>
+                  <li><a href="#">Dresses</a></li>
+                  <li><a href="#">Skirts</a></li>
+                  <li><a href="#">Tops</a></li>
+                </ul>
+              </nav>
+            </section>
+            <section class="widget">
+              <h3>Size</h3>
+              <nav class="sidebar-menu">
+                <ul>
+                  <li><a href="#">XL</a></li>
+                  <li><a href="#">L</a></li>
+                  <li><a href="#">M</a></li>
+                  <li><a href="#">S</a></li>
+                </ul>
+              </nav>
+            </section>
+
+          </aside>
+          <!-- / sidebar -->
+
+          <div class="col-md-9">
+            <div class="row">
+              <% @bonanza_products.each_slice(3) do |row| %>
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <% row.each do |bonanza| %>
+                <article class="mb shop-product">
+
+                  <figure>
+                    <%= image_tag bonanza.image.url(:medium) %>
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+                  <div class="pt-small">
+                    <h2><span><%= link_to bonanza.title, bonanza_path(bonanza) %></span>
+                      <span class="text-main-color large"><%= bonanza.price %></span>
+                    </h2>
+                  </div>
+                </article>
+                <% end %>
+              </div>
+              <% end %>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-6.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Winter sweatshirt </span>
+                      <span class="text-main-color large">$180</span>
+                    </h2>
+                  </div>
+
+                </article>
+              </div>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-7.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Little black Dress</span>
+                      <span class="text-main-color large">$375</span>
+                    </h2>
+                  </div>
+
+                </article>
+              </div>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-4.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Long Sleeve T-Dress</span>
+                      <span class="text-main-color large">$270</span>
+                    </h2>
+                  </div>
+
+                </article>
+              </div>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-8.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Chess skirt</span>
+                      <span class="text-main-color large">$220</span>
+                    </h2>
+                  </div>
+
+                </article>
+              </div>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-9.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Angel dust Dress</span>
+                      <span class="text-main-color large">$599</span>
+                    </h2>
+                  </div>
+
+                </article>
+              </div>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-3.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Classic balck and white dress</span>
+                      <span class="text-main-color large">$295</span>
+                    </h2>
+                  </div>
+                </article>
+
+              </div>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-1.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Light Blue Denim Top</span>
+                      <span class="text-main-color large">$160</span>
+                    </h2>
+                  </div>
+
+                </article>
+              </div>
+              <!-- / item -->
+              <!-- item -->
+              <div class="col-sm-6 col-md-4">
+                <article class="mb shop-product">
+
+                  <figure>
+                    <img src="images/shop/product-2.jpg" alt="EDENA premium website template" class="responsive">
+                    <figcaption>
+                      <div class="rollover-content">
+
+                        <p class="icon-links btn-group responsive">
+
+                          <a href="shop-item.html" title="product">
+                            <span class="icon-glyph-16"></span>view
+                          </a>
+                          <a href="#" title="cart">
+                            <span class="icon-glyph-13"></span> Add to cart
+                          </a>
+                        </p>
+                      </div>
+                    </figcaption>
+                  </figure>
+
+                  <div class="pt-small">
+                    <h2><span>Tan Leather Sleeve Coat</span>
+                      <span class="text-main-color large">$295</span>
+                    </h2>
+                  </div>
+
+                </article>
+              </div>
+              <!-- / item -->
+
+
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- portfolio -->
+  </main>
+  <!-- / content -->
+
+  <!-- footer -->
+  <footer id="main-footer">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+
+        <div class="col-sm-3">
+          <div class="footer-widget clearfix">
+
+            <h3>About us</h3>
+
+            <ul class="list-unstyled list-icon arrow border">
+              <li class="no-pt">Find a store</li>
+              <li>Carreers</li>
+              <li>Our brands</li>
+              <li>Lifestyle</li>
+              <li>Contact us</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+        <div class="col-sm-3">
+          <div class="footer-widget">
+
+            <h3>New arrivals</h3>
+            <ul class="list-unstyled list-icon arrow border">
+              <li class="no-pt">Coats</li>
+              <li>Shoes</li>
+              <li>Handbags</li>
+              <li>Sweaters</li>
+              <li>Accesories</li>
+            </ul>
+
+          </div>
+        </div>
+
+
+        <div class="col-sm-3">
+          <div class="footer-widget">
+            <h3>Support</h3>
+            <ul class="list-unstyled list-icon arrow border">
+              <li class="no-pt">My account</li>
+              <li>My order</li>
+              <li>International shipping</li>
+              <li>Return and exchange</li>
+              <li>Gift cards</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+  <!-- / footer -->
+</div>

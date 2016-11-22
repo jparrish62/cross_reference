@@ -2,7 +2,7 @@ class Ebay < ApplicationRecord
   has_attached_file :image,                 styles: { medium: "300x300#"}
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates :name, presence: true
-  has_many  :comments,                      as: :commentable 
+  has_many  :comments,                      as: :commentable
   belongs_to :user
   require 'httparty'
   require 'json'
@@ -25,7 +25,6 @@ class Ebay < ApplicationRecord
 
   def self.save_ebay_items(request)
     ebay_products = JSON.parse(request.to_json)
-    binding.pry
     ebay_products["ItemArray"]["Item"].map do |ebay|
       ebay_items = Ebay.new
       ebay_items.name        = ebay['PrimaryCategoryName']
