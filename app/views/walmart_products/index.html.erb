@@ -1,185 +1,126 @@
-<section class="pt light-color">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <form class="form-inline mb-sm" role="form">
+<main id="content">
+  <header class="page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-inline mb-sm" role="form">
 
-          <%= form_tag(walmart_products_path, :method => "get", id: "search-form") do %>
-            <% if user_signed_in? %>
-              <%= render('error_message') if params[:search].blank? %>
-              <%=  text_field_tag :search, params[:search], placeholder: "Search Products", class: "form-control" %>
-              <br><br/>
-              <%= submit_tag "Search", class: "btn btn-default" %>
-            <% else %>
-              <%= render 'warning_message'%>
-            <% end %>
-          <% end %>
-        </form>
-      </div>
-    </div>
-  </div>
-  <hr />
-</section>
-
-<!-- portfolio -->
-<section class="pt pb-medium rollover effect-zoe">
-  <div class="container">
-    <div class="row">
-      <!-- sidebar -->
-      <aside class="col-md-3 mb-sm">
-
-        <section class="widget">
-          <h3>Advanced Search</h3>
-          <nav class="sidebar-menu">
-            <%= form_tag(advanced_search_path, :method => "get", id: "search-form") do %>
+            <%= form_tag(walmart_products_path, :method => "get", id: "search-form") do %>
               <% if user_signed_in? %>
-                <ul>
-                  <li><%= text_field_tag :name,      params[:name],      placeholder: "Product Name" %></li><br/>
-                  <li><%= text_field_tag :min_price, params[:min_price], placeholder: "Min Price"    %></li><br/>
-                  <li><%= text_field_tag :max_price, params[:max_price], placeholder: "Max Price"    %></li><br/>
-                  <li><%= text_field_tag :category,  params[:category],  placeholder: "Category"     %></li><br/>
-                  <li><%= text_field_tag :item_id,   params[:item_id],   placeholder: "Item id"      %></li><br/>
-                  <%= submit_tag "Search", class: "btn btn-default" %>
-                </ul>
+                <%= render('error_message') if params[:search].blank? %>
+                <%=  text_field_tag :search, params[:search], placeholder: "Search Products", class: "form-control" %>
+                <br><br/>
+                <%= submit_tag "Search", class: "btn btn-default" %>
+              <% else %>
+                <%= render 'warning_message'%>
               <% end %>
             <% end %>
-          </nav>
-        </section>
-        <section class="widget">
-          <h3>Type</h3>
-          <nav class="sidebar-menu">
-            <ul>
-              <li><a href="#">Coats and jackets</a></li>
-              <li><a href="#">Dresses</a></li>
-              <li><a href="#">Skirts</a></li>
-              <li><a href="#">Tops</a></li>
-            </ul>
-          </nav>
-        </section>
-        <section class="widget">
-          <h3>Size</h3>
-          <nav class="sidebar-menu">
-            <ul>
-              <li><a href="#">XL</a></li>
-              <li><a href="#">L</a></li>
-              <li><a href="#">M</a></li>
-              <li><a href="#">S</a></li>
-            </ul>
-          </nav>
-        </section>
-
-      </aside>
-      <!-- / sidebar -->
-
-
-       <div class="col-md-9">
-        <div class="row">
-          <% @walmart_products.each_slice(4) do |row| %>
-          <!-- item -->
-          <div class="col-sm-6 col-md-4">
-            <% row.each do |product| %>
-            <article class="mb shop-product">
-
-              <figure>
-                <%=  image_tag product.image.url(:medium) %>
-                <figcaption>
-                  <div class="rollover-content">
-
-                    <p class="icon-links btn-group responsive">
-
-                      <a href="shop-item.html" title="product">
-                        <span class="icon-glyph-16"></span>view
-                      </a>
-                      <a href="#" title="cart">
-                        <span class="icon-glyph-13"></span> Add to cart
-                      </a>
-                    </p>
-                  </div>
-                </figcaption>
-              </figure>
-
-              <div class="pt-small">
-
-                <h2><span><%= link_to product.product_name, walmart_product_path(product) %></span>
-                  <span class="text-main-color large">$<%= product.sales_price %></span>
-                </h2>
-              </div>
-
-            </article>
-            <% end %>
-          </div>
-
-          <% end %>
+          </form>
+        </div>
         </div>
       </div>
     </div>
+  </header>
 
-  </div>
-</section>
-<!-- portfolio -->
+  <section class="pt pb-medium">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <% @walmart_products.each do |product| %>
+          <article class="post box light-color mb">
+            <div class="row">
+
+              <div class="post-pic col-sm-4 col-md-4 mb-xs">
+                <%=  image_tag product.image.url(:medium) %>
+              </div>
+              <div class="col-sm-8 col-md-8">
+
+                <h2><%= product.product_name %></h2>
+                <ul class="entry-meta">
+                  <li class="entry-date">
+                    $<%= product.sales_price %>
+                  </li>
+                  <li class="entry-category">
+                    <a data-original-title="View all posts in Featured" class="tips" href="#" title="">Featured</a>
+                  </li>
+                  <li class="entry-author">
+                    <a data-original-title="View all posts by admin" class="tips" href="#" title="">admin</a>
+                  </li>
+                  <li class="entry-comments">
+                    <i class="icon-comment"></i>No Comments
+                  </li>
+                </ul>
+                <p>
+                  <%= truncate(product.product_description) %>
+                </p>
+                 <%= link_to "Read more", walmart_product_path(product) %>
+              </div>
+            </div>
+
+          </article>
+        <% end %>
+
+          <ul class="pagination">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">»</a></li>
+          </ul>
+        </div>
+        <!-- Sidebar -->
+        <aside class="col-md-4">
+          <section class="widget">
+            <h1><span>Latest news</span>What's up here</h1>
+            <p class="mb-small">Nullam sed tortor odio. Suspendisse tincidunt dictum nisi, nec convallis odio lacinia ac. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p>
+          </section>
+
+          <section class="widget">
+            <h3>Advanced Search</h3>
+            <nav class="sidebar-menu">
+              <%= form_tag(advanced_search_path, :method => "get", id: "search-form") do %>
+                <% if user_signed_in? %>
+                  <ul>
+                    <li><%= text_field_tag :name,      params[:name],      placeholder: "Product Name" %></li><br/>
+                    <li><%= text_field_tag :min_price, params[:min_price], placeholder: "Min Price"    %></li><br/>
+                    <li><%= text_field_tag :max_price, params[:max_price], placeholder: "Max Price"    %></li><br/>
+                    <li><%= text_field_tag :category,  params[:category],  placeholder: "Category"     %></li><br/>
+                    <li><%= text_field_tag :item_id,   params[:item_id],   placeholder: "Item id"      %></li><br/>
+                    <%= submit_tag "Search", class: "btn btn-default" %>
+                  </ul>
+                <% end %>
+              <% end %>
+            </nav>
+          </section>
+          <section class="widget">
+            <h3>Archives</h3>
+            <nav class="sidebar-menu">
+              <ul>
+                <li><a href="#">March 2014</a></li>
+                <li><a href="#">September 2011</a></li>
+                <li><a href="#">July 2011</a></li>
+                <li><a href="#">June 2011</a></li>
+              </ul>
+            </nav>
+          </section>
+          <section class="tag-cloud">
+            <h3>Tag cloud</h3>
+            <a href="#" class="w2">News</a>
+            <a href="#" class="w1">category</a>
+            <a href="#" class="w3">business</a>
+            <a href="#" class="w3">economy</a>
+            <a href="#" class="w1">lolcats</a>
+            <a href="#" class="w2">design</a>
+            <a href="#" class="w2">Videos</a>
+            <a href="#" class="w1">Web</a>
+            <a href="#" class="w3">Photos</a>
+            <a href="#" class="w2">Music</a>
+          </section>
+        </aside>
+      </div><!-- row -->
+    </div><!-- container -->
+  </section>
 </main>
-<!-- / content -->
-
-<!-- footer -->
-<footer id="main-footer">
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="footer-widget">
-
-      </div>
-    </div>
-
-    <div class="col-sm-3">
-      <div class="footer-widget clearfix">
-
-        <h3>About us</h3>
-
-        <ul class="list-unstyled list-icon arrow border">
-          <li class="no-pt">Find a store</li>
-          <li>Carreers</li>
-          <li>Our brands</li>
-          <li>Lifestyle</li>
-          <li>Contact us</li>
-        </ul>
-
-      </div>
-
-    </div>
-
-    <div class="col-sm-3">
-      <div class="footer-widget">
-
-        <h3>New arrivals</h3>
-        <ul class="list-unstyled list-icon arrow border">
-          <li class="no-pt">Coats</li>
-          <li>Shoes</li>
-          <li>Handbags</li>
-          <li>Sweaters</li>
-          <li>Accesories</li>
-        </ul>
-
-      </div>
-    </div>
-
-
-    <div class="col-sm-3">
-      <div class="footer-widget">
-        <h3>Support</h3>
-        <ul class="list-unstyled list-icon arrow border">
-          <li class="no-pt">My account</li>
-          <li>My order</li>
-          <li>International shipping</li>
-          <li>Return and exchange</li>
-          <li>Gift cards</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
-</footer>
-<!-- / footer -->
-</div>
-<!-- global wrapper -->

@@ -1,6 +1,7 @@
 class Bonanza < ApplicationRecord
-  has_attached_file :image,                 styles: { medium: "300x300#"}
+  has_attached_file :image,                 styles: { medium: "300x300#" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+  has_many :comments,               as: :commentable
   belongs_to :user
   require 'json'
   require 'net/http'
@@ -9,7 +10,7 @@ class Bonanza < ApplicationRecord
   def self.request_from_bonanza_api(call)
     basic_input_hash = { 'keywords' => call }
     basic_input_json = basic_input_hash.to_json
-    basic_response = Net::HTTP.new("api.bonanza.com").post(
+    basic_response   = Net::HTTP.new("api.bonanza.com").post(
     '/api_requests/standard_request',
     "findItemsByKeywords=#{basic_input_json}",
     {'X-BONANZLE-API-DEV-NAME' => '4b153ZvIjEY8UrG'})
@@ -29,7 +30,6 @@ class Bonanza < ApplicationRecord
 
   def self.save_bonanza_products(items)
     bonanza_items   = JSON.parse(items)
-
     bonanza_items['findItemsByKeywordsResponse']['item'].map do |items|
       bonanza_product = Bonanza.new
       bonanza_product.title         = items['title']
@@ -40,6 +40,5 @@ class Bonanza < ApplicationRecord
       bonanza_product.save!
       bonanza_product
     end
-
   end
 end

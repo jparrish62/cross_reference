@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122074722) do
+ActiveRecord::Schema.define(version: 20161123030710) do
 
   create_table "bonanzas", force: :cascade do |t|
     t.string   "title"
@@ -43,7 +43,9 @@ ActiveRecord::Schema.define(version: 20161122074722) do
     t.integer  "WalmartProduct_id"
     t.integer  "walmart_product_id"
     t.integer  "ebay_id"
+    t.integer  "bonanza_id"
     t.index ["WalmartProduct_id"], name: "index_comments_on_WalmartProduct_id"
+    t.index ["bonanza_id"], name: "index_comments_on_bonanza_id"
     t.index ["ebay_id"], name: "index_comments_on_ebay_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
     t.index ["walmart_product_id"], name: "index_comments_on_walmart_product_id"

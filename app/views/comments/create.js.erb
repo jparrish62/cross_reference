@@ -6,8 +6,12 @@
 
   $("#walmart_comments_first_level").append("<%= j (render partial: 'comments/comment', object: @comment) %>");
 
+<% elsif @commentable.is_a?(Bonanza)%>
+
+  $("#walmart_comments_first_level").append("<%= j (render partial: 'comments/comment', object: @comment) %>");
+
 <% else %>
 
   $("#walmart_comments_<%= @commentable.id %>").append("<%= j (render partial: 'comments/comment', object: @comment) %>");
-  
+
 <% end %>

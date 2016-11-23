@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :bonanzas
+  resources :bonanzas do
+    resources :comments
+  end
 end

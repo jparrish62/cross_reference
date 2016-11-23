@@ -26,8 +26,9 @@ def comment_params
 end
 
 def find_commentable
-   @commentable = Comment.find_by(id: params[:comment_id]) if params[:comment_id]
+   @commentable = Comment.find_by(id: params[:comment_id])                if params[:comment_id]
    @commentable = WalmartProduct.find_by(id: params[:walmart_product_id]) if params[:walmart_product_id]
-   @commentable = Ebay.find_by(id: params[:ebay_id]) if params[:ebay_id]
+   @commentable = Ebay.find_by(id: params[:ebay_id])                      if params[:ebay_id]
+   @commentable = Bonanza.find_by(id: params[:bonanza_id])                if params[:bonanza_id]
  end
 end
